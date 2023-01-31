@@ -35,6 +35,7 @@ namespace MyWebApiApp.Controllers
         [HttpPost]
         public IActionResult Create(HangHoaVM hangHoaVM)
         {
+            string a;
             var hanghoa = new HangHoa
             {
                 MaHangHoa = Guid.NewGuid(),
