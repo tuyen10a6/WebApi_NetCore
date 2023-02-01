@@ -30,7 +30,6 @@ namespace MyWebApiApp.Controllers
                 return BadRequest();
                    
             }
-          
         }
         [HttpPost]
         public IActionResult Create(HangHoaVM hangHoaVM)
