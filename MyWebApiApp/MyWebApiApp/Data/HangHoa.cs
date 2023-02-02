@@ -10,10 +10,16 @@ namespace MyWebApiApp.Data
         [Required]
         [MaxLength(100)]
         public string TenHH { get; set; }
+
         public string MoTa { get; set; }
 
+        [Range(0,double.MaxValue)]
         public double DonGia { get; set; }
         public byte GiamGia { get; set; }
+        // Thêm dấu hỏi có nghĩa có thể có hoặc có thể không
+        public int? MaLoai { get; set; }
+        [ForeignKey("MaLoai")]
+        public Loai Loai { get; set; }
 
     }
 }
