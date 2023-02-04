@@ -7,6 +7,7 @@ namespace MyWebApiApp.Data
         public MyDBContext (DbContextOptions options): base(options)
         { }
         #region DbSet
+        public DbSet<User> Users { get; set; }
         public DbSet<HangHoa> HangHoas { get; set; }
         public DbSet<Loai> Loais { get; set; }
         public DbSet<DonHang> DonHangs { get; set; }
@@ -36,6 +37,12 @@ namespace MyWebApiApp.Data
                .HasForeignKey(e => e.MaHH)
                .HasConstraintName("FK_DonHangCT_HangHoa");
 
+            });
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasIndex(e => e.UserName).IsUnique();
+                entity.Property(e => e.Fullname).IsRequired().HasMaxLength(150);
+                entity.Property(e => e.Email).IsRequired().HasMaxLength(150);
             });
         }
 
