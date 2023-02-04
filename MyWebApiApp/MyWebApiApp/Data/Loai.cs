@@ -11,6 +11,6 @@ namespace MyWebApiApp.Data
         [Required]
         [MaxLength(100)]
         public string TenLoai { get; set; }
-        public virtual ICollection<HangHoa> HangHoas { get; set; }
+        //public virtual ICollection<HangHoa> HangHoas { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MyWebApiApp.Data;
 using MyWebApiApp.Models;
+using MyWebApiApp.Services;
 
 namespace MyWebApiApp.Controllers
 {
@@ -9,65 +9,85 @@ namespace MyWebApiApp.Controllers
     [ApiController]
     public class LoaiController : ControllerBase
     {
-        private readonly MyDBContext _context;
-
-        public LoaiController(MyDBContext context)
+        private readonly ILoaiRepository _loaiRepository;
+        public LoaiController(ILoaiRepository loaiRepository)
         {
-            _context = context; 
+            _loaiRepository = loaiRepository;
         }
         [HttpGet]
         public IActionResult GetAll()
         {
-            var dsLoai = _context.Loais.ToList();
-            return Ok(dsLoai);
+            try
+            {
+                return Ok(_loaiRepository.GetAll());
+            }catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
-        {
-            var Loai = _context.Loais.SingleOrDefault(l => l.MaLoai == id);
-            if(Loai !=null)
-            {
-                return Ok(Loai);
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
-        [HttpPost]
-        public IActionResult CreateNew(LoaiModel model)
         {
             try
             {
-                var loai = new Loai
+               var data = _loaiRepository.GetById(id);
+                if(data != null)
                 {
-                    TenLoai = model.TenLoai
-                };
-                _context.Add(loai);
-                _context.SaveChanges();
-                return Ok(loai);
+                    return Ok(data);
+                }    
+                else
+                {
+                    return NotFound();
+                }    
             }
             catch
             {
-                return BadRequest();
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
-             
         }
         [HttpPut("{id}")]
-        public IActionResult UpDateLoaiByid(int id, LoaiModel model)
+        public IActionResult Update(int id , LoaiVM loai)
         {
-            var loai = _context.Loais.SingleOrDefault(lo => lo.MaLoai ==id);
-            if(loai !=null)
+            if(id != loai.MaLoai)
             {
-                loai.TenLoai = model.TenLoai;
-                _context.SaveChanges();
+                return BadRequest();
+            }    
+            try
+            {
+                _loaiRepository.Update(loai);
                 return NoContent();
-            }    
-            else
+            }
+            catch
             {
-                return NotFound();
-            }    
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Update(int id)
+        {
+         
+            try
+            {
+                _loaiRepository.Delete(id);
+                return Ok();
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+        [HttpPost]
+        public IActionResult Add(LoaiModel loai)
+        {
+            try
+            {
+                return Ok(_loaiRepository.Add(loai)); 
 
+            }catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+
+            }
         }
     }
 }
