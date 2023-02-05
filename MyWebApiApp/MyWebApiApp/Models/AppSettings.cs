@@ -1,6 +1,6 @@
 ﻿namespace MyWebApiApp.Models
 {
-    public class AppSettings
+    public class AppSetting
     {
         public string SecretKey { get; set; }
 

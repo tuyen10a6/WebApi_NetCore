@@ -10,6 +10,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MyWebApiApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -57,6 +58,7 @@ var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables()
     .Build();
+builder.Services.Configure<AppSetting>(configuration.GetSection("AppSettings"));
 var secretKey = configuration["AppSettings:SecretKey"];
 var secretKeyBytes = Encoding.UTF8.GetBytes(secretKey);
 
@@ -100,9 +102,9 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllers();
+//});
 app.Run();
 
