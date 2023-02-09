@@ -4,7 +4,7 @@ namespace MyWebApiApp.Data
 {
     public class MyDBContext: DbContext
     {
-        public MyDBContext (DbContextOptions options): base(options)
+        public MyDBContext (DbContextOptions <MyDBContext> options): base(options)
         { }
         #region DbSet
         public DbSet<User> Users { get; set; }
@@ -12,6 +12,7 @@ namespace MyWebApiApp.Data
         public DbSet<Loai> Loais { get; set; }
         public DbSet<DonHang> DonHangs { get; set; }
         public DbSet<DonHangChiTiet> donHangChiTiets { get; set; }
+        public DbSet<KhachHang> KhachHangs { get; set; }
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -81,7 +81,7 @@ namespace MyWebApiApp.Services
             var result = PaginatedList<HangHoa>.Create(allProducts, page, PAGE_SIZE);
             return result.Select(hh => new HangHoaModel
             {
-                MaHH = hh.MaHH,
+                MaHangHoa = hh.MaHH,
                 TenHH = hh.TenHH,
                 DonGia = hh.DonGia,
                 MaLoai = hh.MaLoai,
@@ -95,9 +95,28 @@ namespace MyWebApiApp.Services
             throw new NotImplementedException();
         }
 
-        public LoaiVM Add(HangHoaModel loai)
+        public HangHoaVM Add(HangHoas hh)
         {
-            throw new NotImplementedException();
+            var _HangHoa = new HangHoa
+            {
+                TenHH = hh.TenHH,
+                MoTa = hh.MoTa,
+                DonGia = hh.DonGia,
+                GiamGia = hh.GiamGia,
+                MaLoai = hh.MaLoai
+
+            };
+            _context.Add(_HangHoa);
+            _context.SaveChanges();
+            return new HangHoaVM
+            {
+                MaHangHoa = _HangHoa.MaHH,
+                TenHH = _HangHoa.TenHH,
+                MoTa = _HangHoa.MoTa,
+                DonGia = _HangHoa.DonGia,
+                GiamGia = _HangHoa.GiamGia,
+                MaLoai = _HangHoa.MaLoai
+            };
         }
 
         public void Update(HangHoaVM loai)
@@ -114,5 +133,12 @@ namespace MyWebApiApp.Services
         {
             throw new NotImplementedException();
         }
+
+        HangHoaVM IHangHoaResposity.GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+       
     }
 }

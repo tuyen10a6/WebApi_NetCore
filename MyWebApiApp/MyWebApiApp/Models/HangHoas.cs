@@ -9,7 +9,6 @@ namespace MyWebApiApp.Models
     {
         public Guid MaHangHoa { get; set; }
         public string TenHH { get; set; }
-
         public string MoTa { get; set; }
         public double DonGia { get; set; }
         public byte GiamGia { get; set; }
@@ -18,32 +17,15 @@ namespace MyWebApiApp.Models
     }
     public class HangHoas:HangHoaVM
     {
-        public Guid MaHangHoa { get; set; }
-        public string TenHH { get; set; }
-
-        public string MoTa { get; set; }
-        public double DonGia { get; set; }
-        public byte GiamGia { get; set; }
-        // Thêm dấu hỏi có nghĩa có thể có hoặc có thể không
-        public int? MaLoai { get; set; }
+       
        
      
 
     }
-    public class HangHoaModel
+    public class HangHoaModel:HangHoaVM
     {
       
-        public Guid MaHH { get; set; }
       
-        public string TenHH { get; set; }
-
-        public string MoTa { get; set; }
-
-       
-        public double DonGia { get; set; }
-        public byte GiamGia { get; set; }
-        // Thêm dấu hỏi có nghĩa có thể có hoặc có thể không
-        public int? MaLoai { get; set; }
       
         public Loai Loai { get; set; }
         public string? TenLoai { get; set; }

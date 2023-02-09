@@ -27,7 +27,6 @@ namespace MyWebApiApp.Services
                 TenLoai = _loai.TenLoai
             };
         }
-
         public void Delete(int id)
         {
             var loai = _context.Loais.SingleOrDefault(lo => lo.MaLoai == id);

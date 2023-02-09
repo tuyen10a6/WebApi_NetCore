@@ -53,6 +53,7 @@ namespace MyWebApiApp.Controllers
                    GiamGia = model.GiamGia,
                    DonGia = model.DonGia,
                    MaLoai = model.MaLoai,
+                   
 
 
                 };

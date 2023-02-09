@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyWebApiApp.Models;
 using MyWebApiApp.Services;
 
 namespace MyWebApiApp.Controllers
@@ -27,5 +28,22 @@ namespace MyWebApiApp.Controllers
                 return BadRequest("We can not products");
             }
         }
+        [HttpPost]
+        public IActionResult Add(HangHoas hanghoa)
+        {
+            try
+            {
+                return Ok(_hanghoaRepository.Add(hanghoa));
+
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+
+            }
+        }
+
+
+
     }
 }
